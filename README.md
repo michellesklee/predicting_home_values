@@ -12,18 +12,18 @@ While the Zillow estimate has been criticized for [lacking accuracy](https://www
 ### Part I. Dataset Creation
 
 #### Feature Space
-From approximately 50 datasets with real estate data from Zillow, 9 features were selected after removing redundant features and initial tests of collinearity. From approximately 30 types of business licenses issued by the city of Denver, 17 were selected after removing features with fewer than 5 licenses for both 2016 and 2017. 
+From approximately 50 datasets with real estate data from Zillow, 9 features were selected after removing redundant features and initial tests of collinearity. From approximately 30 types of business licenses issued by the city of Denver, 17 were selected after removing features with fewer than 5 licenses for both 2016 and 2017.
 
-##### Real Estate 
-1. Median list price 
-2. Listings with price cut 
-3. Median price cut 
-4. Median rental price 
-5. % homes decreasing in value 
-6. % homes increasing in value 
-7. Price to rent ratio 
-8. Rental values: multi-family 
-9. Rental values: single-family 
+##### Real Estate
+1. Median list price
+2. Listings with price cut
+3. Median price cut
+4. Median rental price
+5. % homes decreasing in value
+6. % homes increasing in value
+7. Price to rent ratio
+8. Rental values: multi-family
+9. Rental values: single-family
 
  ##### Business Licenses
 1. Body art
@@ -34,7 +34,7 @@ From approximately 50 datasets with real estate data from Zillow, 9 features wer
 6. Garage/motor repair
 7. Kennel
 8. Liquor
-9. Medical marijuana 
+9. Medical marijuana
 10. Parking lot
 11. Pedal cab
 12. Retail food establishment
@@ -46,13 +46,10 @@ From approximately 50 datasets with real estate data from Zillow, 9 features wer
 
 #### Data Imputation
 Missing real estate data were imputed using the k-nearest neighbors algorithm from [fancyimpute](https://github.com/iskandr/fancyimpute).
-Missing business license data were assumed to indicate no licenses were issued, and thus were imputed with 0. 
+Missing business license data were assumed to indicate no licenses were issued, and thus were imputed with 0.
 The two datasets were then merged based on zip code.
 
 ### Part II. Data Visualization
-![2016](https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI-2016.png)
-![2017](https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI-2017.png)
+![2016](https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI2016-2018.png)
 
 ![value_over_year](https://github.com/michellesklee/analytic_capstone/blob/master/images/value_over_year.png)
-
-
