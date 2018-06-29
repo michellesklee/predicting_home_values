@@ -5,9 +5,9 @@
 Predict home values based on real estate and business-related features in Denver Metro area.
 
 ## Background
-Home appraisals and valuations are critical factors in the home buying and selling process. These estimates may influence the list and sale price, the amount of time a property is on the market, and the perceived health of an area. The real estate website [Zillow](https://www.zillow.com) assigns home value estimates for homes in the U.S., calculated with data regarding the home's location, features, and market conditions.
+Home appraisals and valuations are critical components of the home buying and selling process. These estimates may influence list and sale price, the amount of time a property is on the market, and the perceived health of an area. The real estate website [Zillow](https://www.zillow.com) assigns home value estimates for homes in the U.S., calculated with data regarding the home's location, recent sale prices of comparable homes, features of the home, and market conditions.
 
-While the Zillow estimate has been criticized for [lacking accuracy](https://www.washingtonpost.com/news/where-we-live/wp/2014/06/10/how-accurate-is-zillows-zestimate-not-very-says-one-washington-area-agent/?noredirect=on&utm_term=.ac4b2039e5f1), it is still one of the most widely accessed and freely available home appraisal estimations. The goal of this current project was to develop a model that predicts the Zillow Home Valuation Index (ZHVI) based on features collected by Zillow as well as business license data from the [City and County of Denver](https://www.denvergov.org/opendata/search?tag=business%20licenses).
+While the Zillow estimate has been criticized for [lacking accuracy](https://www.washingtonpost.com/news/where-we-live/wp/2014/06/10/how-accurate-is-zillows-zestimate-not-very-says-one-washington-area-agent/?noredirect=on&utm_term=.ac4b2039e5f1), it is still one of the most widely accessed and freely available home appraisal estimations. The goal of this project is to develop a model that predicts the Zillow Home Valuation Index (ZHVI) based on features collected by Zillow as well as business license data from the [City and County of Denver](https://www.denvergov.org/opendata/search?tag=business%20licenses). The number of new licenses issued by type (e.g., liquor, short term rentals) was examined due to its potential indication of [neighborhood]("https://www.stlouisfed.org/~/media/Files/PDFs/Community-Development/Research-Reports/NeighborhoodCharacteristics.pdf?la=en") and [economic]("https://www.citylab.com/life/2015/11/the-connection-between-vibrant-neighborhoods-and-economic-growth/417714/") growth.
 
 ## I. Exploratory Data Analysis
 ![2016-2018](https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI2016-2018.png)
@@ -88,3 +88,13 @@ Using real estate and business-related features, the linear model had some predi
 - Attempt to predict on available 2018 home values
 - Fine tune the model, looking more closely at business license features in particular
 - Look into GIS data
+
+
+####Data Sources:
+[Zillow Research](https://www.zillow.com/research/data/)
+[City and County of Denver Open Source Data](https://www.denvergov.org/opendata/)
+
+####References
+[New businesses as an indicator of neighborhood health](https://www.stlouisfed.org/~/media/Files/PDFs/Community-Development/Research-Reports/NeighborhoodCharacteristics.pdf?la=en)
+[New businesses as an indicator of neighborhood economic growth](https://www.citylab.com/life/2015/11/the-connection-between-vibrant-neighborhoods-and-economic-growth/417714/)
+[Criticism of the Zestimate](https://www.washingtonpost.com/news/where-we-live/wp/2014/06/10/how-accurate-is-zillows-zestimate-not-very-says-one-washington-area-agent/?noredirect=on&utm_term=.ac4b2039e5f1)
