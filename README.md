@@ -75,10 +75,13 @@ A large difference between train RMSE (7520.87) and test RMSE (18987.79) suggest
 
 ![ridge2](https://github.com/michellesklee/analytic_capstone/blob/master/images/ridge-2016-2017.png)
 
+![ridge3](https://github.com/michellesklee/analytic_capstone/blob/master/images/ridge_alphas.png)
+
 ![lasso1](https://github.com/michellesklee/analytic_capstone/blob/master/images/lasso-2016-2016.png)
 
 ![lasso2](https://github.com/michellesklee/analytic_capstone/blob/master/images/lasso-2016-2017.png)
 
+![lasso3](https://github.com/michellesklee/analytic_capstone/blob/master/images/lasso_alphas.png)
 
 ### V. Conclusion
 Using real estate and business-related features, the linear model had some predictive ability predicting home values in 2016 and 2017. However, the number of features likely contributed to an overfit model. Regularization with Ridge and Lasso resulted in similar RMSE to the initial linear model for 2016, but better fit the model when predicting 2017 home values.
