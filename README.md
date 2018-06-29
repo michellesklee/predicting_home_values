@@ -95,9 +95,12 @@ Using real estate and business-related features, the linear model had some predi
 
 #### Data Sources:
 [Zillow Research](https://www.zillow.com/research/data/)
+
 [City and County of Denver Open Source Data](https://www.denvergov.org/opendata/)
 
 #### References
 [New businesses as an indicator of neighborhood health](https://www.stlouisfed.org/~/media/Files/PDFs/Community-Development/Research-Reports/NeighborhoodCharacteristics.pdf?la=en)
+
 [New businesses as an indicator of neighborhood economic growth](https://www.citylab.com/life/2015/11/the-connection-between-vibrant-neighborhoods-and-economic-growth/417714/)
+
 [Criticism of the Zestimate](https://www.washingtonpost.com/news/where-we-live/wp/2014/06/10/how-accurate-is-zillows-zestimate-not-very-says-one-washington-area-agent/?noredirect=on&utm_term=.ac4b2039e5f1)
