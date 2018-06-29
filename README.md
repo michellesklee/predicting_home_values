@@ -49,3 +49,6 @@ Missing real estate data were imputed using the k-nearest neighbors algorithm fr
 Missing business license data were assumed to indicate no licenses were issued, and thus were imputed with 0. 
 The two datasets were then merged based on zip code.
 
+### Part II. Data Visualization
+
+
