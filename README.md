@@ -10,7 +10,13 @@ Home appraisals and valuations are critical factors in the home buying and selli
 While the Zillow estimate has been criticized for [lacking accuracy](https://www.washingtonpost.com/news/where-we-live/wp/2014/06/10/how-accurate-is-zillows-zestimate-not-very-says-one-washington-area-agent/?noredirect=on&utm_term=.ac4b2039e5f1), it is still one of the most widely accessed and freely available home appraisal estimations. The goal of this current project was to develop a model that predicts the Zillow Home Valuation Index (ZHVI) based on features collected by Zillow as well as business license data from the [City and County of Denver](https://www.denvergov.org/opendata/search?tag=business%20licenses).
 
 ## Exploratory Data Analysis
-### Part I. Dataset Creation
+![2016-2018](https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI2016-2018.png)
+
+![value_over_year](https://github.com/michellesklee/analytic_capstone/blob/master/images/value_over_year.png)
+
+![scatter](https://github.com/michellesklee/analytic_capstone/blob/master/images/eda_scatter.png)
+
+### Dataset Creation
 
 #### Feature Space
 From approximately 50 datasets with real estate data from Zillow, 9 features were selected after removing redundant features and initial tests of collinearity. From approximately 30 types of business licenses issued by the city of Denver, 17 were selected after removing features with fewer than 5 licenses for both 2016 and 2017.
@@ -26,7 +32,7 @@ From approximately 50 datasets with real estate data from Zillow, 9 features wer
 8. Rental values: multi-family
 9. Rental values: single-family
 
- ##### Business Licenses
+##### Business Licenses
 1. Body art
 2. Child care
 3. Combined use
@@ -45,12 +51,30 @@ From approximately 50 datasets with real estate data from Zillow, 9 features wer
 16. Tree service company
 17. Waste hauler
 
-#### Data Imputation
+### Data Imputation
 Missing real estate data were imputed using the k-nearest neighbors algorithm from [fancyimpute](https://github.com/iskandr/fancyimpute).
 Missing business license data were assumed to indicate no licenses were issued, and thus were imputed with 0.
 The two datasets were then merged based on zip code.
 
-### Part II. Data Visualization
-![2016](https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI2016-2018.png)
+### Model
+Data were separated into train and test subsets and explored on linear regression for 2016. This model was then used to predict home values on 2017.
 
-![value_over_year](https://github.com/michellesklee/analytic_capstone/blob/master/images/value_over_year.png)
+![lin1](https://github.com/michellesklee/analytic_capstone/blob/master/images/linear-2016-2016.png)
+
+![lin2](https://github.com/michellesklee/analytic_capstone/blob/master/images/linear-2016-2017.png)
+
+A large difference between train RMSE (7520.87) and test RMSE (18987.79) suggested overfit of the model. Thus, the model was tested again with Ridge  and Lasso regularization.
+
+RMSE
+|  | Ridge | Lasso |
+|--|:------:|--------:|
+|2016 | 18829.99 | 34387.60 |
+|2017 | 17951.41 | 49549.69 |
+
+![ridge1](https://github.com/michellesklee/analytic_capstone/blob/master/images/ridge-2016-2016.png)
+
+![ridge2](https://github.com/michellesklee/analytic_capstone/blob/master/images/ridge-2016-2017.png)
+
+![lasso1](https://github.com/michellesklee/analytic_capstone/blob/master/images/lasso-2016-2016.png)
+
+![lasso2](https://github.com/michellesklee/analytic_capstone/blob/master/images/lasso-2016-2017.png)
