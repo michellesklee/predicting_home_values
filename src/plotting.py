@@ -86,7 +86,7 @@ df_desc = pd.DataFrame({
                         index = ['2016', '2017', '2018'])
 fig = plt.figure(figsize=(8, 5))
 ax0 = fig.add_subplot(1,1,1)
-ax0.plot(df_desc, marker="+", lw=3)
+ax0.plot(df_desc, marker="+", alpha=.75, lw=3)
 ax0.legend(df_desc.columns, fontsize=12, loc='lower right')
 ax0.set_ylim(120000, 600000)
 fig.tight_layout()
