@@ -14,6 +14,8 @@ While the Zillow estimate has been criticized for [lacking accuracy](https://www
 
 ![scatter](https://github.com/michellesklee/analytic_capstone/blob/master/images/eda_scatter.png)
 
+![eda](https://github.com/michellesklee/analytic_capstone/blob/master/images/value_over_year.png)
+
 ## II. Dataset Creation
 
 ### Feature Space
