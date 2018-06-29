@@ -12,8 +12,6 @@ While the Zillow estimate has been criticized for [lacking accuracy](https://www
 ## I. Exploratory Data Analysis
 ![2016-2018](https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI2016-2018.png)
 
-![value_over_year](https://github.com/michellesklee/analytic_capstone/blob/master/images/value_over_year.png)
-
 ![scatter](https://github.com/michellesklee/analytic_capstone/blob/master/images/eda_scatter.png)
 
 ## II. Dataset Creation
@@ -89,4 +87,4 @@ Using real estate and business-related features, the linear model had some predi
 ### VI. Next Steps
 - Attempt to predict on available 2018 home values
 - Fine tune the model, looking more closely at business license features in particular
-- Look into GIS data 
+- Look into GIS data
