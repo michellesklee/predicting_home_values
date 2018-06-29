@@ -51,7 +51,7 @@ Missing business license data were assumed to indicate no licenses were issued, 
 The two datasets were then merged based on zip code.
 
 ### Part II. Data Visualization
-![2017](img src="https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI-2016.png")
+![2017]("https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI-2016.png")
 ![2017](https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI-2017.png)
 
 ![value_over_year](https://github.com/michellesklee/analytic_capstone/blob/master/images/value_over_year.png)
