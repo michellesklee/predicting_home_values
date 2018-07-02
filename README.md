@@ -12,6 +12,8 @@ While the Zillow estimate has been criticized for [lacking accuracy](https://www
 ## I. Exploratory Data Analysis
 ![2016-2018](https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI2016-2018.png)
 
+![scatter_matrix](https://github.com/michellesklee/analytic_capstone/blob/master/images/scatter_matrix_2016.png)
+
 ![scatter](https://github.com/michellesklee/analytic_capstone/blob/master/images/eda_scatter.png)
 
 ![eda](https://github.com/michellesklee/analytic_capstone/blob/master/images/value_over_year.png)
@@ -59,25 +61,19 @@ The two datasets were then merged based on zip code.
 ### III. Model Building
 Data were separated into train and test subsets and explored on linear regression for 2016. This model was then used to predict home values on 2017.
 
-![lin1](https://github.com/michellesklee/analytic_capstone/blob/master/images/linear-2016-2016.png)
-
-![lin2](https://github.com/michellesklee/analytic_capstone/blob/master/images/linear-2016-2017.png)
+![lin](https://github.com/michellesklee/analytic_capstone/blob/master/images/linear-models.png)
 
 A large difference between train RMSE (7520.87) and test RMSE (18987.79) suggested overfit of the model. Thus, the model was tested again with Ridge  and Lasso regularization.
 
 ### IV. Model Results
 
-![ridge1](https://github.com/michellesklee/analytic_capstone/blob/master/images/ridge-2016-2016.png)
+![ridge](https://github.com/michellesklee/analytic_capstone/blob/master/images/ridge-models.png)
 
-![ridge2](https://github.com/michellesklee/analytic_capstone/blob/master/images/ridge-2016-2017.png)
+![ridge_mse](https://github.com/michellesklee/analytic_capstone/blob/master/images/ridge_alphas.png)
 
-![ridge3](https://github.com/michellesklee/analytic_capstone/blob/master/images/ridge_alphas.png)
+![lasso](https://github.com/michellesklee/analytic_capstone/blob/master/images/lasso-models.png)
 
-![lasso1](https://github.com/michellesklee/analytic_capstone/blob/master/images/lasso-2016-2016.png)
-
-![lasso2](https://github.com/michellesklee/analytic_capstone/blob/master/images/lasso-2016-2017.png)
-
-![lasso3](https://github.com/michellesklee/analytic_capstone/blob/master/images/lasso_alphas.png)
+![lasso_mse](https://github.com/michellesklee/analytic_capstone/blob/master/images/lasso_alphas.png)
 
 
 | Year        | Linear | Ridge           | Lasso  |
