@@ -61,4 +61,4 @@ df_biz2016.fillna(0, inplace=True)
 df_filled = df_filled.merge(df_biz2016, on='RegionName')
 
 
-df_filled.to_csv('/Users/michellelee/galvanize/week4/analytic_capstone/data/temp.csv')
+df_filled.to_csv('/Users/michellelee/galvanize/week4/analytic_capstone/data/main.csv')
