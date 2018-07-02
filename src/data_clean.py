@@ -1,3 +1,4 @@
+
 import glob
 import numpy as np
 import pandas as pd
@@ -5,7 +6,7 @@ from functools import reduce
 from fancyimpute import KNN
 
 #Read all files in folder
-files = glob.glob("data/*.csv")
+files = glob.glob('/Users/michellelee/galvanize/week4/analytic_capstone/zillow_data/*.csv')
 
 df_list = []
 for file in files:
@@ -35,7 +36,7 @@ def clean_df(lst):
         df2 = df[['City', 'RegionName', '2016', '2017', '2018']]
 
         #Clean column names
-        features = files[idx].replace('.csv', '').replace('data/', '_')
+        features = files[idx].replace('.csv', '').replace('/Users/michellelee/galvanize/week4/analytic_capstone/zillow_data/', '_')
         df2.columns = ['City', 'RegionName', '2016'+features, '2017'+features, '2018'+features]
         df_list2.append(df2)
     return df_list2
@@ -51,8 +52,8 @@ df_filled = pd.DataFrame(KNN(3).complete(df_main))
 df_filled.columns = df_main.columns
 
 #Merge 2016 and 2017 business data
-df_biz2016 = pd.read_csv('business_data/business_license2016.csv')
-df_biz2017 = pd.read_csv('business_data/business_license2017.csv')
+df_biz2016 = pd.read_csv('/Users/michellelee/galvanize/week4/analytic_capstone/business_data/business_license2016.csv')
+df_biz2017 = pd.read_csv('/Users/michellelee/galvanize/week4/analytic_capstone/business_data/business_license2017.csv')
 df_biz2016 = df_biz2016.merge(df_biz2017, on='RegionName', how='outer')
 df_biz2016.fillna(0, inplace=True)
 
@@ -60,4 +61,4 @@ df_biz2016.fillna(0, inplace=True)
 df_filled = df_filled.merge(df_biz2016, on='RegionName')
 
 
-df_filled.to_csv('~/galvanize/week4/analytic_capstone/main.csv')
+df_filled.to_csv('/Users/michellelee/galvanize/week4/analytic_capstone/data/temp.csv')
