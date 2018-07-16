@@ -9,7 +9,7 @@ Home appraisals and valuations are critical components of the home buying and se
 
 While the Zillow estimate has been criticized for [lacking accuracy](https://www.washingtonpost.com/news/where-we-live/wp/2014/06/10/how-accurate-is-zillows-zestimate-not-very-says-one-washington-area-agent/?noredirect=on&utm_term=.ac4b2039e5f1), it is still one of the most widely accessed and freely available home appraisal estimations. The goal of this project is to develop a model that predicts the Zillow Home Valuation Index (ZHVI) based on features collected by Zillow as well as business license data from the [City and County of Denver](https://www.denvergov.org/opendata/search?tag=business%20licenses). The number of new licenses issued by type (e.g., liquor, short term rentals) was examined due to its potential indication of [neighborhood]("https://www.stlouisfed.org/~/media/Files/PDFs/Community-Development/Research-Reports/NeighborhoodCharacteristics.pdf?la=en") and [economic]("https://www.citylab.com/life/2015/11/the-connection-between-vibrant-neighborhoods-and-economic-growth/417714/") growth.
 
-## I. Exploratory Data Analysis
+## I. Feature Selection
 From approximately 50 datasets with real estate data from Zillow, 9 features were selected after removing redundant features and initial tests of collinearity. From approximately 30 types of business licenses issued by the city of Denver, 17 were selected after removing features with fewer than 5 licenses for both 2016 and 2017.
 
 ##### Real Estate
@@ -42,17 +42,20 @@ From approximately 50 datasets with real estate data from Zillow, 9 features wer
 16. Tree service company
 17. Waste hauler
 
-Home Values 2016-2018
+## II. Exploratory Data Analysis
+
+**Home Values 2016-2018**
 
 ![2016-2018](https://github.com/michellesklee/analytic_capstone/blob/master/images/ZHVI2016-2018.png)
 
-Distribution of Real Estate Features
+**Distribution of Real Estate Features**
 
 ![real_estate](https://github.com/michellesklee/analytic_capstone/blob/master/images/real_estate_hist.png)
 
-Distribution of Business License Features
+**Distribution of Business License Features**
 
 ![business](https://github.com/michellesklee/analytic_capstone/blob/master/images/biz_hist.png)
+
 
 ### Data Imputation
 Missing real estate data were imputed using the k-nearest neighbors algorithm from [fancyimpute](https://github.com/iskandr/fancyimpute).
@@ -69,13 +72,13 @@ Data were separated into train and test subsets and explored on linear regressio
 
 | Real Estate Features        | Coefficient |
  ------------- |--- |
-| %Rental_Value_Index_AllHomes    | 69,690.73
-| %Price_to_Rent_Ratio    | 30,077.58
+| Rental_Value_Index_AllHomes    | 69,690.73
+| Price_to_Rent_Ratio    | 30,077.58
 | %Increasing_Value     | 19,012.93
 | %Decreasing_Value     | 17,449.90
 | Rent_Price     | 7,662.12
 | List_Price     | 4,321.72
-| %Rental_Value_Index_Single_Family    | 2,616.27
+| Rental_Value_Index_Single_Family    | 2,616.27
 | Median_Price_Cut    | 2,404.02
 | %Price_Cut     | -5,193.54
 | %Rental_Value_Index_Multifamily    | -3,622.14
@@ -105,12 +108,6 @@ Data were separated into train and test subsets and explored on linear regressio
 | Retail_Food_Establishment   | -12,104.09
 
 
-
-
-
-
-
-
 A large difference between train RMSE (7520.87) and test RMSE (18987.79) suggested overfit of the model. Thus, the model was tested again with Ridge  and Lasso regularization.
 
 ### IV. Model Results
@@ -123,14 +120,17 @@ A large difference between train RMSE (7520.87) and test RMSE (18987.79) suggest
 
 ![lasso_mse](https://github.com/michellesklee/analytic_capstone/blob/master/images/lasso_alphas.png)
 
+**RMSE across all models**
 
 | Year        | Linear | Ridge           | Lasso  |
 | ------------- |:---|:-------------:| -----:|
 | 2016     | 18,987.79| 18,829.99 | 17,951.41 |
 | 2017     | 90,195.72| 34,387.60      |   49,549.69 |
 
+
 ### V. Conclusion
 Using real estate and business-related features, the linear model had some predictive ability predicting home values in 2016 and 2017. However, the number of features likely contributed to an overfit model. Regularization with Ridge and Lasso resulted in similar RMSE to the initial linear model for 2016, but better fit the model when predicting 2017 home values.
+
 
 
 ### VI. Next Steps
