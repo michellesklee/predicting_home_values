@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from pandas.plotting import scatter_matrix
 
 import matplotlib as mpl
 mpl.rc('axes.spines', top = False, right = False)
@@ -50,7 +51,36 @@ ax2.set_xlabel('Home Values')
 ax2.set_xlim(200000, 700000)
 ax2.set_ylim(0, 18)
 
-plt.savefig('ZHVI2016-2018.png')
+# plt.savefig('ZHVI2016-2018.png')
+# plt.show()
+
+
+df_real_estate_features = df_2016[[
+           '2016_InventoryMeasure_SSA_Zip_Public',
+           '2016_Zip_Listings_PriceCut_SeasAdj_AllHomes',
+           '2016_Zip_Median_PriceCut_Dollar_AllHomes',
+           '2016_Zip_MedianListingPrice_AllHomes',
+           '2016_Zip_MedianRentalPrice_AllHomes',
+           '2016_Zip_PctOfHomesDecreasingInValues_AllHomes',
+           '2016_Zip_PctOfHomesIncreasingInValues_AllHomes',
+           '2016_Zip_PriceToRentRatio_AllHomes',
+           '2016_Zip_Zri_AllHomes']]
+df_real_estate_features.hist(figsize=(25,25))
+plt.savefig('real_estate_hist')
+plt.show
+
+df_biz_features = df_2016[[
+           '2016_Body_Art_Est_Permanent', '2016_Child_Care',
+       '2016_Combined_License', '2016_Food_Retail', '2016_Food_Wholesale',
+       '2016_Garage_Repair_of_Motor_Vehic', '2016_Kennel', '2016_Liquor',
+       '2016_Medical_Marijuana', '2016_Parking_Lot,_Garage',
+       '2016_Pedal_Cab_Company', '2016_Retail_Food_Establishment',
+       '2016_Retail_Marijuana_', '2016_Second_Hand_Dealer',
+       '2016_Short_Term_Rental', '2016_Swimming_Pool',
+       '2016_Tree_Service_Company', '2016_Valet_Location_License',
+       '2016_Waste_Hauler', '2016_Grand_Total']]
+df_biz_features.hist(figsize=(25,25))
+plt.savefig('biz_hist')
 plt.show()
 
 #scatter matrix
@@ -70,7 +100,38 @@ df_2016_scatter.columns = ['ZHVI', 'Inventory', '%Price_Cut', 'Med_Price_Cut', '
                            'ZRI', 'Business']
 
 scatter_matrix(df_2016_scatter, alpha=0.75, figsize=(14, 14), diagonal='kde')
-plt.savefig('scatter_matrix_2016')
+# plt.savefig('scatter_matrix_2016')
+# plt.show()
+
+
+#scatter matrix with business data
+df_biz_scatter = df_scatter[['2016_Zip_Zhvi_AllHomes',
+                             '2016_Body_Art_Est_Permanent',
+                             '2016_Child_Care',
+                             '2016_Combined_License',
+                             '2016_Food_Retail',
+                             '2016_Food_Wholesale',
+                             '2016_Garage_Repair_of_Motor_Vehic',
+                             '2016_Kennel',
+                             '2016_Liquor',
+                             '2016_Medical_Marijuana',
+                             '2016_Parking_Lot,_Garage',
+                             '2016_Pedal_Cab_Company',
+                             '2016_Retail_Food_Establishment',
+                             '2016_Retail_Marijuana_',
+                             '2016_Second_Hand_Dealer',
+                             '2016_Short_Term_Rental',
+                             '2016_Swimming_Pool',
+                             '2016_Tree_Service_Company',
+                             '2016_Valet_Location_License',
+                             '2016_Waste_Hauler']]
+df_biz_scatter.columns = ['ZHVI', 'Body_Art', 'Child_Care', 'Combined',
+                          'Food_Retail', 'Food_Wholesale', 'Garage', 'Kennel', 'Liquor',
+                          'Med_Marijuana', 'Parking_Lot', 'Pedal_Cab', 'Food_Estab', 'Retail_Marijuana',
+                          'Second_Hand', 'Short_Term_Rental', 'Swimming_Pool', 'Tree_Service', 'Valet',
+                          'Waste_Hauler']
+scatter_matrix(df_biz_scatter, alpha=0.75, figsize=(14, 14), diagonal='kde')
+plt.savefig('scatter_biz')
 plt.show()
 
 #some select scatter graphs
