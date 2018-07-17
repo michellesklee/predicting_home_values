@@ -15,6 +15,14 @@ from sklearn.base import clone
 from sklearn.feature_selection import RFE
 from statsmodels.stats.outliers_influence import variance_inflation_factor
 
+style.use('ggplot')
+import matplotlib
+font = {'family' : 'DejaVu Sans',
+        'weight' : 'normal',
+        'size'   : 16}
+matplotlib.rc('font', **font)
+
+
 def standardize_data(X, y):
     X_train, X_test, y_train, y_test = train_test_split(X, y)
     scaler = StandardScaler()
@@ -74,9 +82,19 @@ def linear_model(X, y):
     test_predicted = linear.predict(X_test_std)
     rmse_train = rmse(y_train, train_predicted)
     rmse_test = rmse(y_test, test_predicted)
-    return rmse_train, rmse_test
+    return rmse_train, rmse_test, train_predicted, test_predicted
     print("RMSE of train set is {}".format(rmse_train))
     print("RMSE of test set is {}".format(rmse_test))
+
+def linear_coefs(X, y, df):
+    X_train_std, X_test_std, y_train, y_test = standardize_data(X, y)
+    linear = LinearRegression()
+    linear.fit(X_train_std, y_train)
+    #Coefficients of linear model
+    linear_coefs = list(linear.coef_)
+    lin_col_names = list(df)
+    col_dict = dict(zip(df, linear_coefs))
+    return col_dict
 
 def ridge_model(X, y):
     X_train_std, X_test_std, y_train, y_test = standardize_data(X, y)
@@ -94,6 +112,7 @@ def lasso_model(X, y):
     test_predicted_lasso = lasso.predict(X_test_std)
     rmse_test_lasso = rmse(y_test, test_predicted_lasso)
     return rmse_test_ridge
+
 
 if __name__ == '__main__':
 
@@ -120,19 +139,16 @@ if __name__ == '__main__':
     y_2017 = df['2017_Zip_Zhvi_AllHomes'].values
     y_2018 = df['2018_Zip_Zhvi_AllHomes'].values
 
-    #Coefficients of linear model
-    linear_coefs = list(linear.coef_)
-    lin_col_names = list(df_2016)
-    col_dict = dict(zip(df_2016, linear_coefs))
-    print(col_dict)
-
     #RMSE for 2016-2016 and 2016-2017 data with linear model
-    print("The RMSEs for the 2016 train and test sets for the linear model is {}.".format(linear_model(X_2016, y_2016))
-
-    print("The RMSEs for predicting on 2017 with the linear model is {}.".format(linear_model(X_2017, y_2017)))
-
-    print("The RMSE for the 2016 Ridge model is {}.".format(ridge_model(X_2016, y_2016)))
-    print("The RMSE for the 2017 Ridge model is {}.".format(ridge_model(X_2017, y_2017)))
-
-    print("The RMSE for the 2016 Lasso model is {}.".format(lasso_model(X_2016, y_2016)))
-    print("The RMSE for the 2017 Lasso model is {}.".format(lasso_model(X_2017, y_2017)))
+    # print("The RMSEs for the 2016 train and test sets for the linear model is {}.".format(linear_model(X_2016, y_2016))
+    #
+    # print("The RMSEs for predicting on 2017 with the linear model is {}.".format(linear_model(X_2017, y_2017)))
+    #
+    # print("The RMSE for the 2016 Ridge model is {}.".format(ridge_model(X_2016, y_2016)))
+    # print("The RMSE for the 2017 Ridge model is {}.".format(ridge_model(X_2017, y_2017)))
+    #
+    # print("The RMSE for the 2016 Lasso model is {}.".format(lasso_model(X_2016, y_2016)))
+    # print("The RMSE for the 2017 Lasso model is {}.".format(lasso_model(X_2017, y_2017)))
+    #
+    # #coefficients of linear model
+    # print("Coefficients of linear model: {}".format(linear_coefs(X_2016, y_2016, df_2016)))

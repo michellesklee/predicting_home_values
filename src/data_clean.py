@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 from functools import reduce
 from fancyimpute import KNN
-from statsmodels.stats.outliers_influence import variance_inflation_factor
 
 #Read all files in folder
 files = glob.glob('/Users/michellelee/galvanize/week4/analytic_capstone/zillow_data/*.csv')
