@@ -1,7 +1,6 @@
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Ridge
 from sklearn.linear_model import Lasso
-from sklearn.linear_model import ElasticNetCV
 from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -15,15 +14,15 @@ from utils import XyScaler
 from sklearn.base import clone
 from sklearn.feature_selection import RFE
 from statsmodels.stats.outliers_influence import variance_inflation_factor
+from regression import rmse
 
-# import matplotlib
-# matplotlib.rc('figure', figsize = (12, 12))
-# matplotlib.rc('font', size = 14)
-# matplotlib.rc('axes.spines', top = False, right = False)
-# matplotlib.rc('axes', grid = False)
-# matplotlib.rc('axes', facecolor = 'white')
 
 style.use('ggplot')
+import matplotlib
+font = {'family' : 'DejaVu Sans',
+        'weight' : 'normal',
+        'size'   : 16}
+matplotlib.rc('font', **font)
 
 data = pd.read_csv('/Users/michellelee/galvanize/week4/analytic_capstone/data/main.csv')
 df = data.copy()
@@ -50,59 +49,6 @@ y_2016 = df['2016_Zip_Zhvi_AllHomes'].values
 y_2017 = df['2017_Zip_Zhvi_AllHomes'].values
 y_2018 = df['2018_Zip_Zhvi_AllHomes'].values
 
-#------------------ EDA: DATA VIZUALIZATION -------------------------------
-
-# HISTOGRAMS OF HOME VALUES BY YEAR
-fig, (ax0, ax1, ax2) = plt.subplots(ncols=3, figsize=(28, 8))
-ax0.hist(y_2016, facecolor = '#7DCEA0')
-ax0.set_title('2016')
-ax0.set_xlabel('Home Values')
-ax0.set_xlim(200000, 700000)
-ax0.set_ylim(0, 18)
-
-ax1.hist(y_2017, facecolor = '#229954')
-ax1.set_title('2017')
-ax1.set_xlabel('Home Values')
-ax1.set_xlim(200000, 700000)
-ax1.set_ylim(0, 18)
-
-ax2.hist(y_2018, facecolor = '#145A32')
-ax2.set_title('2018')
-ax2.set_xlabel('Home Values')
-ax2.set_xlim(200000, 700000)
-ax2.set_ylim(0, 18)
-plt.savefig('images/ZHVI2016-2018.png')
-plt.show()
-
-# HISTOGRAM OF REAL ESTATE FEATURES
-df_real_estate_features = df_2016[[
-           '2016_InventoryMeasure_SSA_Zip_Public',
-           '2016_Zip_Listings_PriceCut_SeasAdj_AllHomes',
-           '2016_Zip_Median_PriceCut_Dollar_AllHomes',
-           '2016_Zip_MedianListingPrice_AllHomes',
-           '2016_Zip_MedianRentalPrice_AllHomes',
-           '2016_Zip_PctOfHomesDecreasingInValues_AllHomes',
-           '2016_Zip_PctOfHomesIncreasingInValues_AllHomes',
-           '2016_Zip_PriceToRentRatio_AllHomes',
-           '2016_Zip_Zri_AllHomes']]
-df_real_estate_features.hist(figsize=(25,25), color='#2980B9')
-plt.savefig('images/real_estate_hist')
-plt.show()
-
-# HISTOGRAM OF BUSINESS LICENSES
-df_biz_features = df_2016[[
-           '2016_Body_Art_Est_Permanent', '2016_Child_Care',
-       '2016_Combined_License', '2016_Food_Retail', '2016_Food_Wholesale',
-       '2016_Garage_Repair_of_Motor_Vehic', '2016_Kennel', '2016_Liquor',
-       '2016_Medical_Marijuana', '2016_Parking_Lot,_Garage',
-       '2016_Pedal_Cab_Company', '2016_Retail_Food_Establishment',
-       '2016_Retail_Marijuana_', '2016_Second_Hand_Dealer',
-       '2016_Short_Term_Rental', '2016_Swimming_Pool',
-       '2016_Tree_Service_Company', '2016_Valet_Location_License',
-       '2016_Waste_Hauler', '2016_Grand_Total']]
-df_biz_features.hist(figsize=(25,25), color='#884EA0')
-plt.savefig('images/biz_hist')
-plt.show()
 
 #------------------ LINEAR REGRESSION -------------------------------
 
@@ -112,8 +58,6 @@ scaler.fit(X_train_2016)
 X_train_std_2016 = scaler.transform(X_train_2016)
 X_test_std_2016 = scaler.transform(X_test_2016)
 
-def rmse(true, predicted):
-    return np.sqrt(np.mean((true - predicted) ** 2))
 
 def cv(X, y, base_estimator, n_folds, random_seed=150):
     kf = KFold(n_splits=n_folds, random_state=random_seed)
@@ -155,6 +99,7 @@ def get_optimal_alpha(mean_cv_errors_test):
     optimal_alpha = alphas[optimal_idx]
     return optimal_alpha
 
+#------------------ LINEAR REGRESSION -------------------------------
 
 #1a. Linear regression with train and test on 2016
 linear = LinearRegression()
@@ -164,12 +109,6 @@ train_predicted_2016 = linear.predict(X_train_std_2016)
 test_predicted_2016 = linear.predict(X_test_std_2016)
 rmse_train_2016_2016 = rmse(y_train_2016, train_predicted_2016)
 rmse_test_2016_2016 = rmse(y_test_2016, test_predicted_2016)
-
-#Coefficients of linear model
-linear_coefs = list(linear.coef_)
-lin_col_names = list(df_2016)
-col_dict = dict(zip(df_2016, linear_coefs))
-#print(linear_coefs)
 
 #1b. Linear regression predicting on 2017
 X_2017_std = scaler.transform(X_2017)
@@ -195,13 +134,10 @@ ax1.set_xlabel('True 2017 Home Values')
 ax1.set_ylabel('Predicted 2017 Home Values')
 ax1.set_xlim(150000, 700000)
 ax1.set_ylim(150000, 700000)
-plt.savefig('images/linear-models.png')
+plt.savefig('linear-models.png')
 plt.show()
 
-print(rmse_train_2016_2016)
-print(rmse_test_2016_2016)
-print(rmse_test_2017)
-#------------------ REGULARIZATION -------------------------------
+#------------------ RIDGE REGULARIZATION -------------------------------
 
 #2a. Ridge 2016-2016
 ridge = Ridge(alpha=1.0, normalize=True, max_iter=10000)
@@ -233,7 +169,7 @@ ax1.set_ylabel('Predicted 2017 Home Values')
 ax1.set_xlim(150000, 700000)
 ax1.set_ylim(150000, 700000)
 
-plt.savefig('images/ridge-models.png')
+plt.savefig('ridge-models.png')
 plt.show()
 
 #2c. Ridge alphas
@@ -258,11 +194,12 @@ ax.set_title("Ridge Regression Train and Test RMSE")
 ax.set_xlabel(r"$\log(\alpha)$")
 ax.set_ylabel("RMSE")
 plt.legend()
-plt.savefig('images/ridge_alphas')
+plt.savefig('ridge_alphas')
 plt.show()
 
-
-#3a. Lasso 2016-2016
+# #------------------ LASSO REGULARIZATION -------------------------------
+#
+# #3a. Lasso 2016-2016
 lasso = Lasso(alpha=.8, normalize=True, max_iter=10000, selection='random')
 lasso.fit(X_train_std_2016, y_train_2016)
 test_predicted_lasso_2016 = lasso.predict(X_test_std_2016)
@@ -273,7 +210,6 @@ predicted_lasso_2017 = lasso.predict(X_2017_std)
 rmse_test_lasso_2017 = rmse(y_2017, predicted_lasso_2017)
 
 fig, (ax0, ax1) = plt.subplots(ncols=2, figsize=(28, 8))
-
 ax0.scatter(y_test_2016, test_predicted_lasso_2016, alpha = .75, color='#229954')
 line = np.linspace(150000, 700000, 1000)
 ax0.plot(line,line, color='grey')
@@ -293,13 +229,12 @@ ax1.set_xlim(150000, 700000)
 ax1.set_ylim(150000, 700000)
 
 plt.savefig('lasso-models.png')
-# plt.show()
+plt.show()
 
 lasso_alphas = np.logspace(-3, 1, num=250)
 
 lasso_cv_errors_train, lasso_cv_errors_test = train_at_various_alphas(
     X_train_2016, y_train_2016, Lasso, lasso_alphas, max_iter=5000)
-lasso_cv_errors_test.shape
 
 lasso_mean_cv_errors_train  = lasso_cv_errors_train.mean(axis=0)
 lasso_mean_cv_errors_test = lasso_cv_errors_test.mean(axis=0)
