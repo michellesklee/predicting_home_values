@@ -128,14 +128,62 @@ A large difference between train RMSE (7520.87) and test RMSE (18987.79) suggest
 | 2017     | 90,195.72| 34,387.60      |   49,549.69 |
 
 
-### V. Conclusion
+### V. Additional Models
+#### Feature Importance
+Due to the number and collinearity of features, RFE on sklearn was conducted to select the most important features and the models were evaluated again.
+
+
+| Feature Rank      | Feature |
+ ------------- |--- |
+| 1    | Food_Wholesale
+| 1    | Garage
+| 1    | Retail_Food_Estab
+| 1    | Second_Hand
+| 1    | Tree_Service_Company
+| 1    | Listings_PriceCut
+| 1    | Retail_Marijuana
+| 1    | %DecreasingValue
+| 1    | %IncreasingValue
+| 1    | PricetoRentRatio
+| 1    | ZRI_All
+| 1    | ZRI_SingleFamily
+| 2    | Listings_PriceCut
+| 3    | MedianRentalPrice
+| 4    | ZRI_Multifamily
+| 5    | Short_Term_Rental
+
+**Results**
+
+| Year        | Linear | Ridge           | Lasso  |
+| ------------- |:---|:-------------:| -----:|
+| 2016     | 17,577.96| 30,543.88 | 16,350.88 |
+| 2017     | 15,034.55| 21,392.57      |   19,990.87 |
+
+
+The linear and lasso models with feature selection perform comparably as the original model but are much better at predicting 2017 home values.
+
+#### Real Estate Features
+To see if real estate features, which are highly correlated with home values, are the primary "drivers" are the models, RMSEs were calculated again with only real estate features.
+
+| Year        | Linear | Ridge           | Lasso  |
+| ------------- |:---|:-------------:| -----:|
+| 2016     | 14828.44| 33274.60 |14966.75 |
+| 2017     | 14717.81| 38787.34     |  12393.56 |
+
+**Results**
+
+The models with only real estate features in fact perform very similarly with models that include business license features!
+
+
+### VI. Conclusion
 Using real estate and business-related features, the linear model had some predictive ability predicting home values in 2016 and 2017. However, the number of features likely contributed to an overfit model. Regularization with Ridge and Lasso resulted in similar RMSE to the initial linear model for 2016, but better fit the model when predicting 2017 home values.
 
+When comparing the original models with feature selection and real estate features only, the original models performed similarly, suggesting that business license features warrant further investigation.
 
 
-### VI. Next Steps
+### VII. Next Steps
 - Attempt to predict on available 2018 home values
-- Fine tune the model, looking more closely at business license features in particular
+- Fine tune the model
 - Look into GIS data
 
 
