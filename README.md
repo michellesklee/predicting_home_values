@@ -127,6 +127,8 @@ A large difference between train RMSE (7520.87) and test RMSE (18987.79) suggest
 | 2016     | 18,987.79| 18,829.99 | 17,951.41 |
 | 2017     | 90,195.72| 34,387.60      |   49,549.69 |
 
+All models performs similarly when predicting 2016 home values; however, regularization with Ridge and Lasso improves prediction for 2017.
+
 
 ### V. Additional Models
 #### Feature Importance
@@ -176,14 +178,14 @@ The models with only real estate features in fact perform very similarly with mo
 
 
 ### VI. Conclusion
-Using real estate and business-related features, the linear model had some predictive ability predicting home values in 2016 and 2017. However, the number of features likely contributed to an overfit model. Regularization with Ridge and Lasso resulted in similar RMSE to the initial linear model for 2016, but better fit the model when predicting 2017 home values.
+Using real estate and business-related features, the linear models had some predictive ability predicting home values in 2016 and 2017. Regularization with Ridge and Lasso resulted was conducted due to a potentially overfit model. Regularized models had similar RMSE to the initial linear model for 2016, but better fit the model when predicting 2017 home values.
 
-When comparing the original models with feature selection and real estate features only, the original models performed similarly, suggesting that business license features warrant further investigation.
+Running the models again with feature importance and real estate features only improved performance slightly, particularly for Linear and Lasso. Results suggest that business license features are important in conjunction to real estate features when predicting home values. The business license features from RFE warrant further investigation.
 
 
 ### VII. Next Steps
 - Attempt to predict on available 2018 home values
-- Fine tune the model
+- Examine RFE features with Lasso regularization
 - Look into GIS data
 
 
