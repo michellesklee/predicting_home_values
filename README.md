@@ -122,15 +122,18 @@ A large difference between train RMSE (7520.87) and test RMSE (18987.79) suggest
 
 **RMSE across all models**
 
-| Year        | Linear | Ridge           | Lasso  |
-| ------------- |:---|:-------------:| -----:|
-| 2016     | 18,987.79| 18,829.99 | 17,951.41 |
-| 2017     | 90,195.72| 34,387.60      |   49,549.69 |
+|         | 2016 | 2017           | 
+| ------------- |:---|:-------------:| 
+| Linear     | 18,987.79|90,195.72 | 
+| Ridge     | 18,829.99| 34,387.60        |   
+|Lasso|17,951.41|49,549.69 |
+
 
 All models performs similarly when predicting 2016 home values; however, regularization with Ridge and Lasso improves prediction for 2017.
 
 
 ### V. Additional Models
+
 #### Feature Importance
 Due to the number and collinearity of features, RFE on sklearn was conducted to select the most important features and the models were evaluated again.
 
@@ -156,10 +159,11 @@ Due to the number and collinearity of features, RFE on sklearn was conducted to 
 
 **Results**
 
-| Year        | Linear | Ridge           | Lasso  |
-| ------------- |:---|:-------------:| -----:|
-| 2016     | 17,577.96| 30,543.88 | 16,350.88 |
-| 2017     | 15,034.55| 21,392.57      |   19,990.87 |
+|         | 2016 | 2017           | 
+| ------------- |:---|:-------------:| 
+| Linear     | 17,577.96| 15,034.55 | 
+| Ridge     | 30,543.88| 21,392.57      |   
+|Lasso|16,350.88|19,990.87 |
 
 
 The linear and lasso models with feature selection perform comparably as the original model but are much better at predicting 2017 home values.
@@ -167,20 +171,34 @@ The linear and lasso models with feature selection perform comparably as the ori
 #### Real Estate Features
 To see if real estate features, which are highly correlated with home values, are the primary "drivers" are the models, RMSEs were calculated again with only real estate features.
 
-| Year        | Linear | Ridge           | Lasso  |
-| ------------- |:---|:-------------:| -----:|
-| 2016     | 14828.44| 33274.60 |14966.75 |
-| 2017     | 14717.81| 38787.34     |  12393.56 |
+|         | 2016 | 2017           | 
+| ------------- |:---|:-------------:| 
+| Linear     | 14828.44|14717.81 | 
+| Ridge     | 33274.60| 38787.34      |   
+|Lasso|14966.75 |12393.56 |
+
 
 **Results**
-
 The models with only real estate features in fact perform very similarly with models that include business license features!
+
+#### Supervised Methods 
+Several tree-based, bagging, and boosting methods were conducted with the following RMSE values. Grid Search was conducted to find the best parameters.
+
+| |RMSE | Best RMSE|
+| ------------- |:---|:---:|
+| Decision Tree     | 25949.54||
+| Random Forest     |16123.34|  15026.84 |
+|Bagging|15829.07| 18574.96|
+| kNN |39828.85||
+|Gradient Boosting|13310.9 | 13072.61|
+|AdaBoost|13969.29 | 14868.07|
+
 
 
 ### VI. Conclusion
 Using real estate and business-related features, the linear models had some predictive ability predicting home values in 2016 and 2017. Regularization with Ridge and Lasso resulted was conducted due to a potentially overfit model. Regularized models had similar RMSE to the initial linear model for 2016, but better fit the model when predicting 2017 home values.
 
-Running the models again with feature importance and real estate features only improved performance slightly, particularly for Linear and Lasso. Results suggest that business license features are important in conjunction to real estate features when predicting home values. The business license features from RFE warrant further investigation.
+Running the models again with feature importance and real estate features only improved performance slightly, particularly for Linear and Lasso. However, supervised methods including all features performed even better than models with only real estate features, with the best performance in Gradient Boosting with Grid Search (RMSE = 13072.61)
 
 
 ### VII. Next Steps
